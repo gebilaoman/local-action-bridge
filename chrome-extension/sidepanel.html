@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Local Action Bridge</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-width: 340px;
+      height: 100%;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+      background: #f5f7f8;
+      color: #1f2933;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .header {
+      height: 58px;
+      padding: 0 16px;
+      background: #256f5b;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .section {
+      background: #fff;
+      border: 1px solid #dbe2e8;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    h2 {
+      font-size: 15px;
+      margin-bottom: 12px;
+      color: #102a43;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #52606d;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #cbd5df;
+      border-radius: 6px;
+      padding: 9px 10px;
+      font: inherit;
+      font-size: 13px;
+      background: #fff;
+      color: #1f2933;
+    }
+
+    textarea {
+      min-height: 190px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      line-height: 1.45;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button {
+      height: 40px;
+      border: 0;
+      border-radius: 6px;
+      background: #256f5b;
+      color: white;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    button.secondary {
+      background: #edf2f7;
+      color: #334e68;
+      border: 1px solid #cbd5df;
+    }
+
+    button:disabled {
+      background: #cbd5df;
+      color: #697b8c;
+      cursor: not-allowed;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      background: #f8fafc;
+      border: 1px solid #e4e9ee;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d64545;
+      flex-shrink: 0;
+    }
+
+    .status-indicator.connected {
+      background: #2f9e44;
+    }
+
+    .status-indicator.connecting {
+      background: #f59f00;
+    }
+
+    .window-details {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 6px;
+      color: #52606d;
+      font-size: 12px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .log-section {
+      height: 180px;
+      overflow-y: auto;
+      background: #102a43;
+      color: #fff;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .log-entry {
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .log-entry.success {
+      color: #8ce99a;
+    }
+
+    .log-entry.error {
+      color: #ffa8a8;
+    }
+
+    .log-entry.warn {
+      color: #ffe066;
+    }
+
+    .log-entry.info {
+      color: #91d5ff;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Local Action Bridge</h1>
+  </header>
+
+  <main class="content">
+    <div class="panel">
+      <section class="section">
+        <h2>连接</h2>
+        <div class="field">
+          <label for="targetWindowTitle">目标窗口标题关键字</label>
+          <input id="targetWindowTitle" placeholder="例如：记事本、TextEdit、业务系统窗口标题">
+        </div>
+        <div class="status">
+          <div id="connectionIndicator" class="status-indicator"></div>
+          <span id="connectionStatus">未连接</span>
+        </div>
+        <div id="windowDetails" class="window-details"></div>
+        <div class="button-row">
+          <button id="connectBtn">连接本地程序</button>
+          <button id="clearCacheBtn" class="secondary">清理缓存</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>动作配置</h2>
+        <div class="row">
+          <div class="field">
+            <label for="actionKey">动作名称</label>
+            <input id="actionKey" value="click_center">
+          </div>
+          <div class="field">
+            <label for="savedActionSelect">已保存动作</label>
+            <select id="savedActionSelect"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="actionSteps">动作步骤 JSON</label>
+          <textarea id="actionSteps" spellcheck="false"></textarea>
+        </div>
+        <div class="button-row">
+          <button id="saveActionBtn">保存配置</button>
+          <button id="executeActionBtn" disabled>执行动作</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>日志</h2>
+        <div id="logContainer" class="log-section"></div>
+        <div class="button-row">
+          <button id="clearLogBtn" class="secondary">清除日志</button>
+          <button id="exportLogBtn" class="secondary">导出日志</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>

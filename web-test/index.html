@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Action Bridge Test</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <section class="toolbar">
+      <h1>Local Action Bridge Test</h1>
+      <div id="status" class="status">未连接</div>
+    </section>
+
+    <section class="panel">
+      <div class="field">
+        <label for="extensionId">Chrome 插件 ID</label>
+        <input id="extensionId" placeholder="例如：angcllabcgkohfgngocjpldcglaepefo">
+      </div>
+      <div class="field">
+        <label for="targetWindowTitle">目标窗口标题关键字</label>
+        <input id="targetWindowTitle" placeholder="例如：记事本、TextEdit、业务系统窗口标题">
+      </div>
+      <div class="button-row">
+        <button id="pingBtn">PING</button>
+        <button id="connectBtn">连接本地 APP</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="field">
+        <label for="actionKey">动作名称</label>
+        <input id="actionKey" value="click_center">
+      </div>
+      <div class="field">
+        <label for="steps">动作步骤 JSON</label>
+        <textarea id="steps" spellcheck="false">[
+  { "type": "click", "coordinate_mode": "window", "x": 400, "y": 300 }
+]</textarea>
+      </div>
+      <button id="executeBtn">执行动作</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">响应日志</div>
+      <pre id="log"></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

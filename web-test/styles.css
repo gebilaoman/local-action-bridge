@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Microsoft YaHei", Arial, sans-serif;
+  background: #eef3f1;
+  color: #1f2933;
+}
+
+.app {
+  width: min(920px, calc(100vw - 32px));
+  margin: 24px auto;
+  display: grid;
+  gap: 14px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.status {
+  min-width: 120px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #dbe2e8;
+  color: #334e68;
+  text-align: center;
+  font-size: 14px;
+}
+
+.status.ok {
+  background: #d3f9d8;
+  color: #2b8a3e;
+}
+
+.status.error {
+  background: #ffe3e3;
+  color: #c92a2a;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #dbe2e8;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.panel-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #52606d;
+  font-size: 14px;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5df;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 150px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  line-height: 1.45;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+button {
+  height: 42px;
+  border: 0;
+  border-radius: 6px;
+  background: #256f5b;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+pre {
+  min-height: 220px;
+  margin: 0;
+  overflow: auto;
+  padding: 12px;
+  border-radius: 6px;
+  background: #102a43;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.45;
+}

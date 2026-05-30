@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Local Action Bridge",
+  "version": "2.0",
+  "description": "连接网页和本地应用的通用操作中转工具",
+  "permissions": [
+    "nativeMessaging",
+    "sidePanel",
+    "windows",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "48": "icons/icon48.png"
+    }
+  },
+  "icons": {
+    "48": "icons/icon48.png"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "externally_connectable": {
+    "matches": [
+      "*://localhost/*",
+      "*://*/*"
+    ]
+  }
+}

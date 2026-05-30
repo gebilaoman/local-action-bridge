@@ -1,0 +1,9 @@
+{
+  "name": "com.localaction.bridge",
+  "description": "Local Action Bridge native messaging host",
+  "path": "/Users/gebilaozhongyi/Documents/work/gebilaozhongyi/github/local-action-bridge/local-action-bridge-client/dist/local-action-bridge/local-action-bridge",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://eglodgoafbjopjccahpgfjkdacepodcf/"
+  ]
+}

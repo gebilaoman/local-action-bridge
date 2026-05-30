@@ -1,0 +1,10 @@
+.connecting {
+    background-color: #ffa500; /* 橙色表示连接中 */
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+} 
