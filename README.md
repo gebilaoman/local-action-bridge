@@ -75,3 +75,7 @@ tail -f /tmp/local_action_bridge_logs/native_messaging_detailed.log
 cd local-action-bridge-client
 pyinstaller --name local-action-bridge main.py -y
 ```
+
+## License
+
+MIT
