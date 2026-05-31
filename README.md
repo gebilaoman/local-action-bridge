@@ -1,3 +1,5 @@
+Local execution bridge for AI coding agents and GitHub Actions workflows.
+
 # Local Action Bridge
 
 这是一个通用的 Chrome 扩展 + Native Messaging 本地程序，用于让网页通过插件中转，触发本地 APP 的鼠标和键盘操作。
